@@ -28,7 +28,7 @@ if (!is_dir($backupDir)) {
 /* ================== ZIP ================== */
 
 $date = date("Y-m-d_H-i");
-$zipFile = "$backupDir/MirzaBOT_$date.zip";
+$zipFile = "$backupDir/MySQL_$date.zip";
 
 $zip = new ZipArchive();
 if ($zip->open($zipFile, ZipArchive::CREATE | ZipArchive::OVERWRITE) !== true) {
@@ -58,7 +58,7 @@ $zip->close();
 
 /* ================== CLEAN OLD BACKUPS ================== */
 
-$backups = glob("$backupDir/MirzaBOT_*.zip");
+$backups = glob("$backupDir/MySQL_*.zip");
 if (count($backups) > $maxBackups) {
     sort($backups);
     while (count($backups) > $maxBackups) {
@@ -73,7 +73,7 @@ $url = "https://api.telegram.org/bot$botToken/sendDocument";
 $postFields = [
     'chat_id' => $chatId,
     'document' => new CURLFile($zipFile),
-    'caption' => "✅ #MirzaBOT Backup Created...!\n   - https://github.com/im-JvD/MySQL_Backuper" 
+    'caption' => "✅ #MySQL Backup Created...!\n   - https://github.com/im-JvD/MySQL_Backuper" 
 ];
 
 $ch = curl_init();
@@ -88,5 +88,6 @@ $response = curl_exec($ch);
 curl_close($ch);
 
 /* ================== DONE ================== */
+
 
 
